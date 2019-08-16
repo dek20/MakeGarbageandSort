@@ -1,0 +1,81 @@
+import os, shutil, random
+
+def start():
+
+	#make the dekstop the working directory
+	os.chdir(desktoppath)
+
+	#make a folder for all the files that are about to be made
+	os.mkdir('GarbageDump')
+
+	#change working directory to new garbagedump folder
+	os.chdir(garbagepath)
+
+	current = os.getcwd()
+
+	print(current)
+
+#a function to make 500 dummy files in the working directory
+def makegarbage():
+	i = 0
+	while i <= 500:
+		new = open( names[random.randint(0,35)] + names[random.randint(0,35)] + names[random.randint(0,35)] + names[random.randint(0,35)] ,'a')
+		new.close()
+		i += 1
+'''#a function to remove duplicate garbage files before sorting, stopped this and just excepted the error instead.
+def killdups():
+	for folderName, subfolders, filenames in os.walk(garbagepath):
+		namelist = filenames
+		newlist = []
+		for i in namelist:
+			if i not in newlist:
+'''		
+
+#a function to delete all files with 5 in the filename
+def killfive():
+	for folderName, subfolders, filenames in os.walk(garbagepath):
+		namelist = filenames
+		for i in namelist:
+			if '5' in i:
+				os.unlink(i)
+				
+#a function to make a subfolder for every index in names for sorting
+def subfoldercreate():
+	for char in names:
+		os.mkdir(char)
+  
+# a function to move all files into a folder matching the character they start with
+def sortGarbage():
+	for folderNames, subfolders, filenames in os.walk(garbagepath):
+		namelist = filenames
+		for i in namelist:
+			shutil.move(i,i[0])   
+
+#variable to run program so error handling can be used, errors come up when moving the randomly made filenames, sometimes there are duplicates.	
+running = True
+
+while running == True:
+	
+	#a string for names of all files and folders
+	names = 'abcdefghijklmnopqrstuvwxyz1234567890'
+	
+	#asks user for the name of their user directory
+	user = input('what is your computer user directory name?')
+	
+	#set a variable for the path to desktop
+	desktoppath = 'C:\\Users\\'+ user +'\\Desktop'
+	
+	#variable for new garbagedump path
+	garbagepath = 'C:\\Users\\'+ user +'\\Desktop\\GarbageDump'
+	
+	try:
+		start()
+		makegarbage()
+		subfoldercreate()
+		killfive()
+		sortGarbage()
+		print('All done!')
+		running = False
+	except shutil.Error:
+		running = False
+		pass
