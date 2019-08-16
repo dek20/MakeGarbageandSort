@@ -22,3 +22,7 @@ using the open() function i made a lot of mistakes, such as not closing the file
 firguring out how to handle the errors that potentially would come up with Shutil.move, since my file creation function doesnt have a way to make sure every file name is unique, occasionally i would files with duplicate names. I solved this problem by excepting the Shutil problem with pass, as it when the error was thrown it still seemed to sort all of the file correctly.
 
 
+in the future:
+  add a way to specify a character to search filenames for to delete them instead of 5 being hardcoded
+  add a way to also write contents to the files
+  add option to delete all the files created when the program is finished so you dont have to do it manually
